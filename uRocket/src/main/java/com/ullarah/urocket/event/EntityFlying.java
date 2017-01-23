@@ -22,9 +22,9 @@ public class EntityFlying implements Listener {
 
         if (RocketInit.rocketEntity.containsKey(event.getEntity().getUniqueId())) {
 
-            Horse horse = event.getEntity();
+            Horse horse = ((Horse) event.getEntity());
 
-            ItemStack saddle = event.getEntity().getInventory().getSaddle();
+            ItemStack saddle = horse.getInventory().getSaddle();
 
             if (rocketFunctions.isValidRocketSaddle(saddle)) {
 
