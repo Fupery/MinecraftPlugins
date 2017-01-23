@@ -19,19 +19,23 @@ public class PlayerJoin implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
+        JoinQuitInit.lastPlayer = player.getPlayerListName();
+
+        // Join message
         if (JoinQuitInit.playerJoinMessage.containsKey(playerUUID)) {
 
-            JoinQuitFunctions joinQuitFunctions = new JoinQuitFunctions();
+            String currentMessage = event.getJoinMessage();
+            if (currentMessage != null && currentMessage.length() != 0) {
 
-            String message = joinQuitFunctions.replacePlayerString(player,
-                    joinQuitFunctions.getMessage(player, JoinQuitFunctions.Message.JOIN));
+                JoinQuitFunctions joinQuitFunctions = new JoinQuitFunctions();
+                String message = joinQuitFunctions.replacePlayerString(player,
+                        joinQuitFunctions.getMessage(player, JoinQuitFunctions.Message.JOIN));
 
-            event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', JoinQuitInit.joinChar + message));
-
-            JoinQuitInit.lastPlayer = player.getPlayerListName();
-
+                event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', JoinQuitInit.joinChar + message));
+            }
         }
 
+        // Join location
         if (JoinQuitInit.playerJoinLocation.containsKey(playerUUID))
             player.teleport(JoinQuitInit.playerJoinLocation.get(playerUUID));
 
